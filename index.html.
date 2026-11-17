@@ -1,0 +1,148 @@
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171112">
+<title>15 da Mari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{--black:#171112;--wine:#651f32;--wine-dark:#3c111f;--champagne:#c8ad83;--cream:#d8c5a5;--ivory:#f1e7d5}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--black);color:var(--ivory);font-family:"Cormorant Garamond",Georgia,serif}
+button{font:inherit}
+.cover{min-height:100svh;position:relative;overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 75%,rgba(194,147,91,.24),transparent 35%),linear-gradient(180deg,#11111a 0%,#21151c 56%,#100d10 100%)}
+.cover:before{content:"";position:absolute;inset:0;opacity:.55;background-image:radial-gradient(2px 2px at 12% 20%,#f6dfb4 98%,transparent),radial-gradient(1.5px 1.5px at 78% 16%,#f6dfb4 98%,transparent),radial-gradient(1px 1px at 65% 34%,#f6dfb4 98%,transparent),radial-gradient(2px 2px at 30% 38%,#f6dfb4 98%,transparent),radial-gradient(1px 1px at 88% 46%,#f6dfb4 98%,transparent)}
+.castle{position:absolute;bottom:13%;left:50%;transform:translateX(-50%);width:min(900px,115vw);height:55%;opacity:.88;filter:drop-shadow(0 0 22px rgba(196,145,91,.2))}
+.garden{position:absolute;bottom:0;width:100%;height:24%;background:radial-gradient(ellipse at 50% 100%,rgba(112,69,52,.55),transparent 70%)}
+.candle{position:absolute;bottom:8%;width:9px;height:38px;background:linear-gradient(90deg,#806044,#e1c69b,#7b573b);border-radius:3px;box-shadow:0 0 24px 8px rgba(238,177,96,.2)}
+.candle:before{content:"";position:absolute;left:2px;top:-14px;width:6px;height:16px;background:#ffd58b;border-radius:50%;filter:blur(1px);box-shadow:0 0 22px 9px rgba(255,183,91,.5)}
+.c1{left:9%}.c2{left:22%;transform:scale(.8)}.c3{right:13%}.c4{right:25%;transform:scale(.8)}
+.cover-content{position:relative;z-index:2;text-align:center;padding:30px 18px 75px}
+.eyebrow{letter-spacing:.28em;text-transform:uppercase;color:var(--champagne);font-size:.78rem}
+.script{font-family:"Great Vibes",cursive;font-weight:400}
+.cover-title{font-size:clamp(4rem,12vw,7rem);line-height:1.05;color:#e0c69d;text-shadow:0 3px 28px #000;margin:12px 0 25px}
+.envelope-wrap{position:relative;width:min(310px,78vw);height:190px;margin:0 auto;perspective:900px;cursor:pointer;filter:drop-shadow(0 22px 28px #080607)}
+.envelope{position:absolute;inset:0;background:linear-gradient(145deg,#e5d4b8,#b89b73);border:1px solid #f0dfc2;border-radius:4px;overflow:visible}
+.envelope:before{content:"";position:absolute;inset:0;background:linear-gradient(35deg,transparent 49.5%,rgba(91,54,43,.22) 50%,transparent 50.7%),linear-gradient(-35deg,transparent 49.5%,rgba(91,54,43,.2) 50%,transparent 50.7%)}
+.flap{position:absolute;top:0;left:0;width:100%;height:58%;background:linear-gradient(160deg,#f0e1c9,#c9ad86);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1s ease;z-index:4}
+.seal{position:absolute;z-index:5;left:50%;top:52%;transform:translate(-50%,-50%);width:65px;height:65px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#a44758,var(--wine) 65%,#300d18);border:2px solid #9c6a59;box-shadow:0 4px 12px #3b111b;color:#f0d9b5;font-family:"Great Vibes",cursive;font-size:29px}
+.open-hint{margin:20px 0 0;color:#e6d4b8;font-size:1.15rem;letter-spacing:.06em}
+.masks{position:absolute;inset:-30px;pointer-events:none;z-index:7}
+.mask{position:absolute;width:65px;height:37px;opacity:0;transform:translate(0,30px) scale(.5) rotate(0);transition:all 1.1s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 8px 8px #170b10)}
+.mask svg{width:100%;height:100%}
+.m1{left:0;top:4%}.m2{right:0;top:8%;transition-delay:.12s}.m3{left:8%;bottom:0;transition-delay:.24s}.m4{right:7%;bottom:-3%;transition-delay:.36s}
+.cover.open .flap{transform:rotateX(180deg)}
+.cover.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4);transition:all .45s}
+.cover.open .m1{opacity:1;transform:translate(-22px,-85px) scale(1.25) rotate(-18deg)}
+.cover.open .m2{opacity:1;transform:translate(20px,-100px) scale(1.25) rotate(15deg)}
+.cover.open .m3{opacity:1;transform:translate(-35px,65px) scale(1.2) rotate(12deg)}
+.cover.open .m4{opacity:1;transform:translate(35px,65px) scale(1.2) rotate(-13deg)}
+.cover.zoom .cover-content{animation:zoomAway 1.1s forwards}
+@keyframes zoomAway{to{transform:scale(1.7);opacity:0}}
+.invite{display:none;min-height:100vh;padding:55px 18px 70px;background:radial-gradient(ellipse at top,#3b2028,#171112 55%);text-align:center}
+.invite.show{display:block;animation:appear 1.2s ease both}
+@keyframes appear{from{opacity:0;transform:scale(1.08)}to{opacity:1;transform:scale(1)}}
+.frame{max-width:720px;margin:auto;padding:35px 22px;border:1px solid rgba(200,173,131,.65);outline:1px solid rgba(200,173,131,.2);outline-offset:7px;position:relative}
+.frame:before,.frame:after{content:"✦";position:absolute;color:var(--champagne);font-size:22px;background:#21151b;padding:0 9px}
+.frame:before{top:-14px;left:50%;transform:translateX(-50%)}.frame:after{bottom:-14px;left:50%;transform:translateX(-50%)}
+.invite h1{font:clamp(3.4rem,10vw,6rem) "Great Vibes",cursive;color:var(--champagne);font-weight:400;margin:0 0 8px}
+.subtitle{letter-spacing:.25em;text-transform:uppercase;color:#d7c4a4;font-size:.8rem}
+.intro{font-size:1.35rem;line-height:1.45;max-width:520px;margin:25px auto}
+.details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:28px auto;max-width:500px}
+.detail{border:1px solid rgba(200,173,131,.4);padding:14px 8px;background:rgba(0,0,0,.15)}
+.detail small{display:block;color:var(--champagne);letter-spacing:.18em;text-transform:uppercase}
+.detail strong{display:block;font-size:1.4rem;font-weight:500;margin-top:5px}
+.section{max-width:650px;margin:35px auto 0}
+.section h2{font:2.5rem "Great Vibes",cursive;color:var(--champagne);font-weight:400;margin:0 0 8px}
+.section p{font-size:1.2rem;line-height:1.45}
+.photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px}
+.photo{min-height:190px;border:1px solid rgba(200,173,131,.55);background:linear-gradient(145deg,#4a2930,#171112);display:grid;place-items:center;overflow:hidden;color:#ead9bc;position:relative}
+.photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.photo label{z-index:1;background:rgba(23,17,18,.78);padding:9px 12px;cursor:pointer}
+.photo input{display:none}
+.list{list-style:none;padding:0;font-size:1.2rem;line-height:1.8}
+.btn{display:inline-block;margin:10px 5px;padding:12px 22px;border:1px solid var(--champagne);color:var(--ivory);text-decoration:none;background:rgba(101,31,50,.45);letter-spacing:.06em}
+.btn:hover{background:var(--wine)}
+.note{font-size:.95rem!important;color:#c8b89f}
+@media(max-width:480px){.details{grid-template-columns:1fr 1fr}.photo{min-height:145px}.frame{padding:30px 15px}.castle{bottom:16%;height:46%}}
+</style>
+</head>
+<body>
+<section class="cover" id="cover">
+  <svg class="castle" viewBox="0 0 900 430" aria-hidden="true">
+    <defs><linearGradient id="stone" x2="0" y2="1"><stop stop-color="#65505a"/><stop offset="1" stop-color="#171218"/></linearGradient></defs>
+    <g fill="url(#stone)" stroke="#9c8068" stroke-opacity=".35" stroke-width="2">
+      <path d="M170 400V205h110v195M620 400V205h110v195M280 400V145h340v255"/>
+      <path d="M140 205l85-95 85 95zM590 205l85-95 85 95zM250 145l200-120 200 120z"/>
+      <path d="M380 400V260q70-100 140 0v140z"/>
+      <path d="M170 205h110v-25H170zM620 205h110v-25H620zM280 145h340v-25H280z"/>
+      <path d="M185 110V70h20v40M675 110V70h20v40M425 45V10h20v35"/>
+    </g>
+    <g fill="#e6b875" opacity=".85"><rect x="203" y="240" width="18" height="30" rx="8"/><rect x="242" y="240" width="18" height="30" rx="8"/><rect x="648" y="240" width="18" height="30" rx="8"/><rect x="688" y="240" width="18" height="30" rx="8"/><rect x="330" y="190" width="18" height="30" rx="8"/><rect x="552" y="190" width="18" height="30" rx="8"/></g>
+    <g fill="#21151b"><path d="M0 400q100-80 200 0M700 400q100-80 200 0"/></g>
+  </svg>
+  <div class="garden"></div><i class="candle c1"></i><i class="candle c2"></i><i class="candle c3"></i><i class="candle c4"></i>
+  <div class="cover-content" id="coverContent">
+    <div class="eyebrow">Uma noite de mistério e elegância</div>
+    <div class="cover-title script">15 da Mari</div>
+    <div class="envelope-wrap" id="openEnvelope" role="button" tabindex="0" aria-label="Abrir convite">
+      <div class="envelope"><div class="flap"></div><div class="seal">15</div></div>
+      <div class="masks">
+        <div class="mask m1"><svg viewBox="0 0 100 55"><path d="M4 20Q22 0 44 18Q50 24 56 18Q78 0 96 20L83 44Q65 53 50 38Q35 53 17 44Z" fill="#171112" stroke="#d2b477" stroke-width="4"/><path d="M22 22q9-9 19 0m18 0q10-9 19 0" fill="none" stroke="#d2b477" stroke-width="3"/></svg></div>
+        <div class="mask m2"><svg viewBox="0 0 100 55"><path d="M4 20Q22 0 44 18Q50 24 56 18Q78 0 96 20L83 44Q65 53 50 38Q35 53 17 44Z" fill="#f0e6d4" stroke="#c7a66e" stroke-width="4"/><path d="M22 22q9-9 19 0m18 0q10-9 19 0" fill="none" stroke="#aa895a" stroke-width="3"/></svg></div>
+        <div class="mask m3"><svg viewBox="0 0 100 55"><path d="M4 20Q22 0 44 18Q50 24 56 18Q78 0 96 20L83 44Q65 53 50 38Q35 53 17 44Z" fill="#651f32" stroke="#d2b477" stroke-width="4"/><path d="M22 22q9-9 19 0m18 0q10-9 19 0" fill="none" stroke="#d2b477" stroke-width="3"/></svg></div>
+        <div class="mask m4"><svg viewBox="0 0 100 55"><path d="M4 20Q22 0 44 18Q50 24 56 18Q78 0 96 20L83 44Q65 53 50 38Q35 53 17 44Z" fill="#30202a" stroke="#c8ad83" stroke-width="4"/><path d="M22 22q9-9 19 0m18 0q10-9 19 0" fill="none" stroke="#c8ad83" stroke-width="3"/></svg></div>
+      </div>
+    </div>
+    <p class="open-hint">Toque no envelope para abrir</p>
+  </div>
+</section>
+
+<main class="invite" id="invite">
+ <div class="frame">
+  <div class="subtitle">Você está convidado(a) para celebrar</div>
+  <h1>15 da Mari</h1>
+  <p class="intro">Prepare-se para uma noite onde o mistério encontra a elegância. Será uma alegria ter você comigo nessa celebração especial!</p>
+  <div class="details">
+   <div class="detail"><small>Data</small><strong>19 de setembro de 2028</strong></div>
+   <div class="detail"><small>Horário</small><strong>19h</strong></div>
+  </div>
+  <div class="section"><h2>O cenário da noite</h2><p>Um baile de máscaras, uma noite inesquecível.</p></div>
+  <div class="section"><h2>Meu ensaio</h2><p>As fotos oficiais serão adicionadas aqui.</p>
+   <div class="photo-grid">
+    <div class="photo"><label>Escolher foto 1<input type="file" accept="image/*" onchange="previewPhoto(this)"></label></div>
+    <div class="photo"><label>Escolher foto 2<input type="file" accept="image/*" onchange="previewPhoto(this)"></label></div>
+    <div class="photo"><label>Escolher foto 3<input type="file" accept="image/*" onchange="previewPhoto(this)"></label></div>
+    <div class="photo"><label>Escolher foto 4<input type="file" accept="image/*" onchange="previewPhoto(this)"></label></div>
+   </div><p class="note">As fotos escolhidas aqui aparecem apenas no seu aparelho durante esta visita. Para publicar as fotos para todos, substitua os arquivos no GitHub.</p>
+  </div>
+  <div class="section"><h2>Local da celebração</h2><p id="placeText">Local a definir</p><a class="btn" id="mapButton" href="#" target="_blank" rel="noopener">Ver localização</a></div>
+  <div class="section"><h2>Dress code</h2><p>Baile de máscaras. Escolha seu traje e venha viver essa noite comigo.</p><p class="note">Sugestão de paleta para os convidados: preto, vinho e tons claros. Ajustaremos as orientações depois.</p></div>
+  <div class="section"><h2>Lista de presentes</h2><ul class="list"><li>Blusas</li><li>Bolsas e acessórios</li><li>Perfumes</li><li>Maquiagem</li><li>Outras surpresas</li></ul><p class="note">Os tamanhos e as sugestões poderão ser atualizados mais tarde.</p></div>
+  <div class="section"><h2>Confirme sua presença</h2><p>Vou adorar comemorar com você!</p><a class="btn" id="rsvp" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20quero%20confirmar%20minha%20presen%C3%A7a%20no%2015%20da%20Mari." target="_blank" rel="noopener">Confirmar pelo WhatsApp</a><p class="note">O número do WhatsApp será configurado quando você enviar o contato.</p></div>
+  <div class="section"><h2>Falta pouco...</h2><p id="countdown">19 de setembro de 2028</p></div>
+  <p class="script" style="font-size:2.5rem;color:var(--champagne);margin:30px 0 0">Um beijo da sua debutante</p>
+ </div>
+</main>
+<script>
+const cover=document.getElementById('cover'), invite=document.getElementById('invite'), envelope=document.getElementById('openEnvelope');
+function openInvite(){if(cover.classList.contains('open'))return;cover.classList.add('open');setTimeout(()=>cover.classList.add('zoom'),1300);setTimeout(()=>{cover.style.display='none';invite.classList.add('show');window.scrollTo(0,0)},2350)}
+envelope.addEventListener('click',openInvite);
+envelope.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openInvite()}});
+function previewPhoto(input){const file=input.files&&input.files[0];if(!file)return;const box=input.closest('.photo');let img=box.querySelector('img');if(!img){img=document.createElement('img');box.appendChild(img)}img.src=URL.createObjectURL(file)}
+const partyDate=new Date('2028-09-19T19:00:00-03:00');
+function updateCountdown(){const el=document.getElementById('countdown');const ms=partyDate-new Date();if(ms<=0){el.textContent='Chegou o grande dia!';return}const d=Math.floor(ms/86400000),h=Math.floor(ms%86400000/3600000);el.textContent=`Faltam ${d} dias e ${h} horas`;}
+updateCountdown();setInterval(updateCountdown,60000);
+</script>
+</body>
+</html>'''
+
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(f"Arquivo criado: {path} ({len(html)} caracteres)")
